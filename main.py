@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturnday", "Sunday")
+WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
 
 @dataclass
@@ -31,7 +31,7 @@ def analyseTimestamps(PTimestamps: list[TIMESTAMP], PDayUsages: list[DAY_USAGE],
     PDayUsages.extend(DAY_USAGE(name) for name in WEEKDAYS)
     for t in PTimestamps:
         for day in PDayUsages:
-            if t.weekday == day.weekday:
+            if t.weekday.replace("Saturnday", "Saturday") == day.weekday:
                 day.usage += t.consumption
                 day.cost += t.consumption * t.price
     PResults.append("### Electricity consumption summary ###")
